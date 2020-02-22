@@ -1,0 +1,29 @@
+
+/* Articles et commentaires */
+h1, h3
+{
+    text-align:center;
+}
+h3
+{
+    background-color:black;
+    color:white;
+    font-size:0.9em;
+    margin-bottom:0px;
+}
+.acteur p
+{
+    background-color:#CCCCCC;
+    margin-top:0px;
+}
+.acteur
+{
+    width:70%;
+    margin:auto;
+}
+
+a
+{
+    text-decoration: none;
+    color: blue;
+}
