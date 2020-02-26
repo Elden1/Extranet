@@ -1,29 +1,229 @@
 
-/* Articles et commentaires */
-h1, h3
-{
-    text-align:center;
+/*CSS pour l'extranet */
 }
-h3
-{
-    background-color:black;
-    color:white;
-    font-size:0.9em;
-    margin-bottom:0px;
-}
-.acteur p
-{
-    background-color:#CCCCCC;
-    margin-top:0px;
-}
-.acteur
-{
-    width:70%;
-    margin:auto;
-}
-
 a
 {
     text-decoration: none;
     color: blue;
+} 
+a:hover
+{
+    text-decoration: none;
+    color: blue;
+    background-color: #e5e5e5;
+}
+input[type="text"],[type="password"] {
+    width: 300px 
+}
+/* header */
+#head_info{
+     display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin: auto;
+    background-color: #f7f7f7;
+}
+#text_head{
+
+}
+
+.head_session { 
+
+}
+
+.head_link {
+    background-color: #fafafa;
+}
+.img_header{
+
+}
+
+/*page connexion index*/
+
+#page_connexion{
+}
+
+.connexion_form {
+    text-align: center;
+    width: 300px;
+    background-color:#f0f0f0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: auto;
+}
+.titre_connexion{
+    padding-top: 15px;
+    text-align: center;
+}
+
+.connexion_links{
+          text-align: center;
+}
+
+/* page acteurs GBAF */
+#act{
+    width: 70%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    border-bottom: solid 1px #e62e00;
+    padding-top: 50px;
+    margin: auto;
+}
+.block {
+    background-color: #f0f0f0;
+}
+.img_acteur{
+    max-width: 50px;
+}
+
+.acteur_name{
+    text-align: left;
+}
+.acteur p
+{       
+    max-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
+    margin-top:0px;
+}
+.acteur
+{
+    max-width: 400px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
+    text-align: left;
+    margin:auto;
+}
+
+.acteur_page:nth-child(4){
+    text-align: right;
+    width:80px;
+
+}
+
+.gbaf_text {
+    max-width: 50%; 
+    text-align: center;
+    border-bottom: solid 1px #e62e00;
+    margin: auto;
+}
+
+/* inscription */
+#insc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.titre_insc{
+    text-align: center;
+}
+
+.form_insc{
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    background-color:#f0f0f0;
+    padding-top: 15px;
+    padding-right: 15px;
+    margin: auto;
+}
+.insc_button{
+    text-align: center;
+}
+
+/* administration */
+#admin_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.titre_admin{
+    text-align: center;   
+}
+.info_admin{
+    display: inline-block;
+    text-align: left;
+    width: 400px;
+    border-bottom: solid 1px #e62e00;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    margin: auto;
+}
+.titre_modif{
+        max-width: 700px;
+
+}
+.modif_info{
+    display: inline-block;
+    text-align: center;
+    width: 700px;
+    border-bottom: solid 1px #e62e00;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    margin: auto;
+}
+
+/* page acteur */
+.acteur_pg{
+
+    max-width: 600px;
+    padding-left: 50px;
+    padding-right: 5px;
+    text-align: left;
+    margin: auto;
+}
+.img_page{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+
+}
+
+/*commentaire et vote */
+
+#comm_color{
+    background-color: #f7fcff;
+    border-radius: 10px;
+    width: 705px;
+    margin: auto;
+
+}
+#comm{
+    display: flex;
+    justify-content: center;
+}
+.titre_comm{
+    text-align: center;
+    margin: auto;
+}
+
+.info_comm p{
+    padding: 5px;
+    background-color:black;
+    color:white;
+    width: 200px;
+}
+.form_vote{
+
+}
+
+.list_comm {
+border: 1px solid rgba(28,110,164,0.31);
+border-radius: 10px;
+padding-left: 5px;
+}
+.afficher_comm {
+width: 700px;
+padding-bottom: 5px;
+padding-left: 5px;
+margin: auto;
+
 }
