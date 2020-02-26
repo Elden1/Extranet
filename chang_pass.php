@@ -21,38 +21,47 @@ $req->execute(array($_GET['username']));
 $donnees = $req->fetch();
 
 ?>
-	<form>
-		<form action="chang_pass.php" method="post">
-<p> votre question était "<?php echo  $donnees['question'];?>", quel est votre réponse ? </p>			
-		<input type="text" name="reponse">
+<head>
+            <meta charset="utf_8" />
+<link href="style.css" rel="stylesheet" />
+</head>
+    <div id="page_connexion">
+        <div class="titre_connexion">
+            <h2>Réinitialisation de votre mot de passe</h2><br />
+        </div>
+         <div class="modif_info">
+		<form action="chang_pass.php" method="get">
+<p>"<?php echo  $donnees['question'];?>"</p>			
+		<input type="text" name="reponse"><br />
 		<input type="hidden" name="question" value="<?php echo $donnees['username'];?>">
-		<input type="submit" name="send">
+		<br /><input type="submit" name="send">
 	</form>
+</div>
+</div>
 <?php
-$req->closeCursor();
+
 
 //vérification réponse à la question
 $_GET['question'] = (isset($_GET['question']) ? $_GET['question'] : '');
 $_GET['reponse'] = (isset($_GET['reponse']) ? $_GET['reponse'] : '');
 
 if(isset($_GET['reponse'])) {
-        $req = $bdd->prepare('
+        $req2 = $bdd->prepare('
         SELECT username, reponse, question
         FROM account
         WHERE question = :question
         AND reponse = :reponse');
 
-$req->execute(array(
+$req2->execute(array(
      ':reponse' => $_GET['reponse'],
 	':question' => $_GET['question']));
 
-$donnees = $req->fetch();
+$result = $req->fetch();
 $Exist = $req->rowcount();
 
 if ($Exist == 1){
 	header('Location: new_mdp.php?username='. $donnees['username']);
-   } else {
-echo 'Mauvaise réponse, essayez avec une autre ortographr.';
+  
  }      
 }
 ?>
