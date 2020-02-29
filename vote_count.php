@@ -9,18 +9,27 @@ catch(PDOException $e)
     echo "Connection failed: " . $e->getMessage();
     }
 
-    if (isset($_GET['id_acteur'])) {
+    if (isset($donnees['id_acteur'])) {
     	$req3 = $bdd->prepare('
-    SELECT id_user, id_acteur, vote_pos, vote_neg 
+    SELECT vote_pos
     FROM vote 
-    WHERE id_acteur = ?');
+    WHERE id_acteur = ?
+    AND vote_pos = 1');
+$req3->execute(array($donnees['id_acteur']));
 
-$req3->execute(array($_GET['id_acteur']));
+         $req4 = $bdd->prepare('
+    SELECT vote_neg 
+    FROM vote 
+    WHERE id_acteur = ?
+    AND vote_pos = -1');
 
-$result = $req3->rowCount();
-$vote = $result['vote_pos'] + $result['vote_neg'];
-echo $vote;
-echo $result['vote_pos'];
-echo $result['vote_neg'];
+$req3->execute(array($donnees['id_acteur']));
+$req4->execute(array($donnees['id_acteur']));
+
+$result1 = $req3->rowCount();
+$result2 = $req4->rowCount();
+
+$vote = $result1 - $result2;
+return $vote;
     }
 ?>
