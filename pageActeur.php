@@ -41,10 +41,7 @@ $donnees = $req->fetch();
 	</p>
 	<p><a href =extra_gbaf.php>Retour aux acteurs.</a></p>
 </div>
-<?php
 
-$req->closeCursor();
-?>
 	<div class="titre_comm">
 	<h2>Commentaires</h2>
 </div>
@@ -61,18 +58,24 @@ $req->closeCursor();
 
 	<div class="form_vote">
 	<form action="form_vote.php" method="post">
-		<label>Vote cool    <input type=radio name="vote" id="vote1" value="votePos"></label><br />
-		<label>Vote pas cool<input type=radio name="vote" id="vote2" value="voteNeg"></label><br />
+		<label>Vote cool    <input type=radio name="vote" id="vote1" value="vote_pos"></label><br />
+		<label>Vote pas cool<input type=radio name="vote" id="vote2" value="vote_neg"></label><br />
 		<input type="submit" name="voter" value="Publier"></p>
 		<input type="hidden" name="id_acteur" value="<?php echo $donnees['id_acteur'];?>">
 	</form>
+<?php
 
+$vote_count = include ("vote_count.php");
+
+echo $vote_count;
+
+?>
 </div>
 </div>
 <?php
 // Récup commentaires
 
-$req = $bdd->prepare('
+$req2 = $bdd->prepare('
 	SELECT account.prenom, account.id_user, comment.id_acteur, comment.date_add, comment
 	FROM comment 
 	INNER JOIN account
@@ -80,17 +83,17 @@ $req = $bdd->prepare('
 	WHERE id_acteur = ?
 	ORDER BY date_add');
 
-$req->execute(array($_GET['acteur'],));
+$req2->execute(array($_GET['acteur'],));
 
-while ($donnees = $req->fetch())
+while ($donnees2 = $req2->fetch())
 {
 ?>	<div id="comm_color"><div class="afficher_comm">
-<div class="info_comm"><p><strong><?php echo htmlspecialchars($donnees['prenom']); ?>
-</strong> le <?php echo htmlspecialchars($donnees['date_add']); ?></p></div>
-<div class="list_comm"><p><?php echo nl2br(htmlspecialchars($donnees['comment'])); ?></p></div></div></div>
+<div class="info_comm"><p><strong><?php echo htmlspecialchars($donnees2['prenom']); ?>
+</strong> le <?php echo htmlspecialchars($donnees2['date_add']); ?></p></div>
+<div class="list_comm"><p><?php echo nl2br(htmlspecialchars($donnees2['comment'])); ?></p></div></div></div>
 <?php
 } // Fin de la boucle des commentaires
-$req->closeCursor();
+$req2->closeCursor();
 ?>
 </body>
 </html>
