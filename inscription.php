@@ -23,7 +23,7 @@ $question = (isset($_POST['question']) ? $_POST['question'] : '');
  $reponse = (isset($_POST['reponse']) ? $_POST['reponse'] : '');
 
 //Vérification
-
+if(isset($_POST['password'])){
 //hachage
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
 
@@ -58,8 +58,8 @@ $req->execute(array(
 	':question' => $question,
 	':reponse' => $reponse));
 	
-    echo 'Vos identifiants ont bien étaient enregistrés.';
+     header("Location: index.php");
 
     }
-
+}
 ?>
