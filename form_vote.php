@@ -1,20 +1,13 @@
 <?php 
 session_start();
-try {
-    $bdd = new PDO("mysql:host=localhost;dbname=extranet;port=3308", 'root', '');
-    // set the PDO error mode to exception
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
+include_once '../extra-config.php';
+
 
 $id_user = (isset($_SESSION['id_user']) ? $_SESSION['id_user'] : '');
 $id_acteur = (isset($_POST['id_acteur']) ? $_POST['id_acteur'] : '');
-$vote = $_POST['vote'];
-$vote_pos = (isset($_POST['vote_pos']) ? $_POST['vote_pos'] : '1');
-$vote_neg = (isset($_POST['vote_neg']) ? $_POST['vote_neg'] : '-1');
+$vote = (isset($_POST['vote']));
+$upvote = (isset($_POST['upvote']) ? $_POST['upvote'] : '1');
+$downvote = (isset($_POST['downvote']) ? $_POST['downvote'] : '-1');
 
 
 //vérification doubl vote
@@ -26,36 +19,39 @@ if(isset($_POST['vote'])) {
         AND id_user = :id_user');
 
 $req->execute(array(
-    ':id_acteur' => $_POST['id_acteur'],
-    ':id_user' => $_SESSION['id_user']));
+        ':id_acteur' => $_POST['id_acteur'],
+        ':id_user' => $_SESSION['id_user']));
 
-$Exist = $req->rowcount();
-if ($Exist == 1){
- header("Location: pageActeur.php?acteur=$id_acteur/");
+$Exist = $req->fetch();
+        if ($Exist == TRUE){
+        $connexion = "Déjà voté !"; 
+        header("Location: ../pageActeur.php?acteur=$id_acteur&error2=$connexion");
 //ajout vote
-} else if ($vote == "vote_pos") {
-	$req = $bdd->prepare('
-    INSERT INTO vote(id_user, id_acteur, date_add, vote_pos )
-    VALUES(:id_user, :id_acteur, NOW(), :vote_pos)');
+}       else if (($_POST['vote'] == 'upvote')) {
+
+$req = $bdd->prepare('
+        INSERT INTO vote(id_user, id_acteur, date_add, upvote )
+        VALUES(:id_user, :id_acteur, NOW(), :upvote)');
 
     $req->execute(array(
-    ':id_user' => $id_user,
-    ':id_acteur' => $id_acteur, 
-	':vote_pos' => $vote_pos));
+        ':id_user' => $_SESSION['id_user'],
+        ':id_acteur' => $_POST['id_acteur'], 
+        ':upvote' => $upvote));
 
-header("Location: pageActeur.php?acteur=$id_acteur/");
+header("Location: ../pageActeur.php?acteur=$id_acteur/");
 
-} else if ($vote == "vote_neg") {
-	$req = $bdd->prepare('
-    INSERT INTO vote(id_user, id_acteur, date_add, vote_neg )
-    VALUES(:id_user, :id_acteur, NOW(), :vote_neg)');
+} else if (($_POST['vote'] == 'downvote')) {
+
+    $req = $bdd->prepare('
+    INSERT INTO vote(id_user, id_acteur, date_add, downvote )
+    VALUES(:id_user, :id_acteur, NOW(), :downvote)');
 
     $req->execute(array(
-    ':id_user' => $id_user,
-    ':id_acteur' => $id_acteur, 
-	':vote_neg' => $vote_neg));
+        ':id_user' => $_SESSION['id_user'],
+        ':id_acteur' => $_POST['id_acteur'], 
+        ':downvote' => $downvote));
 
-header("Location: pageActeur.php?acteur=$id_acteur/");
+header("Location: ../pageActeur.php?acteur=$id_acteur/");
 
  }
 } 
